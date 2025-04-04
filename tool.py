@@ -1,9 +1,10 @@
 from skimage.io import imread
 from skimage.io import imsave
-from scipy.misc import imresize
+from skimage.transform import resize
 import numpy as np
 import os
 import logging
+import config
 
 logger = logging.getLogger("tool")
 
@@ -180,7 +181,7 @@ def center_person(img, size, method="simple"):
     right_part_column_count = origin_width - left_part_column_count - 1
 
     if left_part_column_count == right_part_column_count:
-        return imresize(img, size)
+        return resize(img, size)
     elif left_part_column_count > right_part_column_count:
         right_padding_column_count = left_part_column_count - right_part_column_count
         new_img = np.zeros((origin_height, origin_width + right_padding_column_count), dtype=np.int)
@@ -190,7 +191,7 @@ def center_person(img, size, method="simple"):
         new_img = np.zeros((origin_height, origin_width + left_padding_column_count), dtype=np.int)
         new_img[:, left_padding_column_count:] = img
 
-    return imresize(new_img, size)
+    return resize(new_img, size)
 
 
 def build_GEI(img_list):

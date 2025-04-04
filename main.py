@@ -1,4 +1,3 @@
-__author__ = 'fucus'
 import logging
 from data_tool import load_training_validation_data
 from model.models import RandomForestClassification
